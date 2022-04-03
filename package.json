@@ -1,0 +1,14 @@
+{
+  "name": "dev-redirect",
+  "private": true,
+  "workspaces": [
+    "extension",
+    "ui"
+  ],
+  "devDependencies": {
+    "concurrently": "^7.1.0"
+  },
+  "scripts": {
+    "build:watch": "concurrently \"yarn --cwd ui build:watch\" \"yarn --cwd extension build:watch\""
+  }
+}

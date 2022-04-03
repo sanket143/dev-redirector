@@ -1,0 +1,12 @@
+.link {
+  cursor: pointer;
+  width: calc(100% - 10px);
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
