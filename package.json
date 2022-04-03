@@ -6,9 +6,11 @@
     "ui"
   ],
   "devDependencies": {
-    "concurrently": "^7.1.0"
+    "concurrently": "^7.1.0",
+    "web-ext": "^6.8.0"
   },
   "scripts": {
+    "build:ext": "yarn --cwd extension build && yarn --cwd ui build && web-ext build -s dist",
     "build:watch": "concurrently \"yarn --cwd ui build:watch\" \"yarn --cwd extension build:watch\""
   }
 }
