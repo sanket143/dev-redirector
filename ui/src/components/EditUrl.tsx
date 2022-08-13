@@ -11,6 +11,7 @@ type EditUrlInput = {
 const EditUrl: Component<EditUrlInput> = (props) => {
   const [targetUrl, setTargetUrl] = createSignal("");
   const [redirectionUrl, setRedirectionUrl] = createSignal("");
+  const [regexMatchPattern, setRegexMatchPattern] = createSignal("");
 
   let urls: Url[] = [];
 
@@ -25,11 +26,10 @@ const EditUrl: Component<EditUrlInput> = (props) => {
       urls = [];
     }
 
-    console.log(props.currentUrlIndex);
-
     if (!_.isNil(props.currentUrlIndex)) {
       setTargetUrl(urls[props.currentUrlIndex].targetUrl);
       setRedirectionUrl(urls[props.currentUrlIndex].redirectUrl);
+      setRegexMatchPattern(urls[props.currentUrlIndex].regexMatchString || "");
     }
   });
 
@@ -42,11 +42,13 @@ const EditUrl: Component<EditUrlInput> = (props) => {
       urls[props.currentUrlIndex] = {
         targetUrl: targetUrl(),
         redirectUrl: redirectionUrl(),
+        regexMatchString: regexMatchPattern(),
       };
     } else {
       urls.push({
         targetUrl: targetUrl(),
         redirectUrl: redirectionUrl(),
+        regexMatchString: regexMatchPattern(),
       });
     }
 
@@ -84,6 +86,13 @@ const EditUrl: Component<EditUrlInput> = (props) => {
         }}
         placeholder="Redirect to?"
         value={redirectionUrl()}
+      ></input>
+      <input
+        onInput={(event) => {
+          setRegexMatchPattern(event.currentTarget.value);
+        }}
+        placeholder="Regex body match"
+        value={regexMatchPattern()}
       ></input>
       <button onClick={save}>Save</button>
       {!_.isNil(props.currentUrlIndex) && (
